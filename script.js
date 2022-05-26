@@ -60,6 +60,31 @@ function writePassword() {
     choices = alpha;
   }
 
+// if only 2 positive options
 
-// added event listener to copy to clipboard button
+// if only 3 positive options
+  else if (confirmCharacter && confirmNumber && confirmUppercase) {
+    choices = character.concat(number, alpha2);
+  }
+  else if (confirmCharacter && confirmNumber && confirmLowercase) {
+    choices = character.concat(number, alpha);
+  }
+  else if (confirmCharacter && confirmLowercase && confirmUppercase) {
+    choices = character.concat(alpha,alpha2);
+  }
+  else if (confirmNumber && confirmLowercase && confirmUppercase) {
+    choices = number.concat(alpha,alpha2);
+  }
 
+// if all 4 positive options
+  else if (confirmCharacter && confirmNumber && confirmUppercase && confirmLowercase ) {
+    choices =character.concat(number, alpha, alpha2);
+  }
+
+  var password = [];
+
+  for (var i = 0; i < enter; i++) {
+    var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+    password.push(pickChoices);
+
+  }
