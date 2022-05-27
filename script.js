@@ -17,7 +17,7 @@ space =[];
 var choices;
 
 var toUpper = function (x) {
-  return x.toUppercase();
+  return x.toUpperCase();
 };
 
 alpha2 = alpha.map(toUpper);
@@ -27,24 +27,30 @@ var get = document.querySelector("#generate");
 
 // event listener to generate button
 get.addEventListener("click", function () {
-  ps = writePassword();
+  ps = generatePassword();
   document.getElementById("password").placeholder = ps;
 });
 
 // start function to write password
-function writePassword() {
-  enter= parseInt(prompt("Between 8 & 128 characters, how long would you like your password?"));
+function generatePassword() {
+  enter= parseInt(prompt("Between 8 and 128 characters, how long would you like your password?"));
   if (!enter) {
-    alert("Please select a value as requested...");
-  } else if (enter <8 || enter > 128) {
-    enter = parseInt(prompt("Please choose between 8 and 128."));
+    alert("Please select a value as requested");
+  } else if (enter < 8 || enter > 128) {
+    enter = parseInt(prompt("Please choose a number between 8 and 128"));
   
   } else {
     confirmNumber = confirm("Should it contain numbers?");
-    confirmCharacter = confirm("Should this contain SPECIAL characters?");
-    confirmUppercase = confirm("Should it contain CAPITAL letters?")
+    confirmCharacter = confirm("Should it contain SPECIAL characters?");
+    confirmUppercase = confirm("Should it contain CAPITAL letters?");
     confirmLowercase = confirm("Should it contain LOWERCASE letters?");
-  };
+  }
+
+// all negative options
+  if (!confirmCharacter && !confirmNumber && !confirmUppercase && !confirmLowercase) {
+    choices = alert("No criteria has been chosen");
+  }
+
 
 // if only 1 positive option
   else if (confirmCharacter) {
@@ -61,6 +67,24 @@ function writePassword() {
   }
 
 // if only 2 positive options
+  else if (confirmCharacter && confirmNumber) {
+    choices = character.concat(number);
+  }
+  else if (confirmCharacter && confirmLowercase) {
+    choices = character.concat(alpha);
+  }
+  else if (confirmCharacter && confirmUppercase) {
+    choices = character.concat(alpha2);
+  }
+  else if (confirmLowercase && confirmUppercase) {
+    choices = alpha.concat(number);
+  }
+  else if (confirmLowercase && confirmUppercase) {
+    choices = alpha.concat(alpha2);
+  }
+  else if (confirmNumber && confirmUppercase) {
+    cjoices = number.concat(alpha2);
+  }
 
 // if only 3 positive options
   else if (confirmCharacter && confirmNumber && confirmUppercase) {
@@ -86,5 +110,14 @@ function writePassword() {
   for (var i = 0; i < enter; i++) {
     var pickChoices = choices[Math.floor(Math.random() * choices.length)];
     password.push(pickChoices);
-
   }
+
+  var ps = password.join("");
+  UserInput(ps);
+  return ps;
+}
+
+function UserInput (ps) {
+  document.getElementById("password").textContent =ps;
+
+}
