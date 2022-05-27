@@ -1,4 +1,6 @@
 // assignment code here
+window.alert("Welcome to Password Generator! Make sure to fulfill all criteria to get the strongest password~");
+
 var enter;
 var confirmNumber;
 var confirmCharacter;
@@ -40,10 +42,10 @@ function generatePassword() {
     enter = parseInt(prompt("Please choose a number between 8 and 128"));
   
   } else {
-    confirmNumber = confirm("Should it contain numbers?");
-    confirmCharacter = confirm("Should it contain SPECIAL characters?");
-    confirmUppercase = confirm("Should it contain CAPITAL letters?");
-    confirmLowercase = confirm("Should it contain LOWERCASE letters?");
+    confirmNumber = confirm("Should it contain numbers?\n[OK] for Yes, [CANCEL] for No.");
+    confirmCharacter = confirm("Should it contain SPECIAL characters?\n[OK] for Yes, [CANCEL] for No.");
+    confirmUppercase = confirm("Should it contain CAPITAL letters?\n[OK] for Yes, [CANCEL] for No.");
+    confirmLowercase = confirm("Should it contain LOWERCASE letters?\n[OK] for Yes, [CANCEL] for No.");
   }
 
 // all negative options
@@ -120,4 +122,16 @@ function generatePassword() {
 function UserInput (ps) {
   document.getElementById("password").textContent =ps;
 
+}
+
+// copy & paste to clipboard
+var copy = document.querySelector("#copy");
+copy.addEventListener("click", function () {
+    copyPassword();
+});
+
+function copyPassword() {
+    document.getElementById("password").select();
+    document.execCommand("Copy");
+    alert("Password is now in your clipboard!");
 }
